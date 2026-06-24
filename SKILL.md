@@ -1006,3 +1006,4 @@ Only when converting existing projects. Do NOT read for new Quarto documents:
 - [Typst template parity #10223](https://github.com/orgs/quarto-dev/discussions/10223)
 - [Typst book support #6979](https://github.com/orgs/quarto-dev/discussions/6979)
 - [Harvard dissertation (Typst+Quarto)](https://github.com/christopherkenny/harvard-diss)
+- [State immunization reports](https://github.com/claritydatastudio/state-immunization-reports) — production Typst template with custom functions (`#source()`, `#blueline()`, `#status-boxes()`), R-based but Typst patterns are language-agnostic
