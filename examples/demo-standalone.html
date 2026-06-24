@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+@page { size: A4; margin: 0; background: #050D1A; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 10pt;
+  line-height: 1.6;
+  color: #9DB0CF;
+  background: #050D1A;
+  margin: 0;
+  padding: 0;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ── COVER PAGE ── */
+.cover-page {
+  background: #050D1A;
+  min-height: 297mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 3rem;
+  position: relative;
+  page-break-after: always;
+}
+
+.cover-header {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 2rem; left: 3rem; right: 3rem;
+  font-size: 7pt;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #E8B949;
+  font-weight: 700;
+}
+
+.cover-label { color: #C3912E; font-size: 6.5pt; letter-spacing: 0.12em; }
+
+.cover-headline {
+  font-weight: 900;
+  font-size: 2.8rem;
+  color: #000000;
+  line-height: 1.1;
+  margin: 1rem 0;
+  max-width: 400px;
+}
+
+.cover-guest-label {
+  font-size: 7pt;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #C3912E;
+  margin-bottom: 0.2rem;
+}
+
+.cover-guest-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #EDF2FA;
+  margin-bottom: 1.5rem;
+}
+
+.cover-quote {
+  font-size: 1rem;
+  color: #9DB0CF;
+  line-height: 1.5;
+  max-width: 500px;
+  font-style: italic;
+}
+
+.cover-instruction {
+  font-size: 8pt;
+  color: #69789A;
+  max-width: 480px;
+  line-height: 1.5;
+  margin-top: 1rem;
+}
+
+.cover-footer {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 2rem; left: 3rem; right: 3rem;
+  font-size: 6pt;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.cf-brand, .cf-guest { color: #69789A; }
+.cf-cta { color: #C3912E; font-weight: 600; }
+
+/* ── SECTION PAGES ── */
+.section-page {
+  background: #050D1A;
+  min-height: 297mm;
+  padding: 0;
+  position: relative;
+  page-break-after: always;
+}
+
+.section-header {
+  padding: 3rem 3rem 1rem;
+}
+
+.section-num {
+  font-weight: 900;
+  font-size: 2rem;
+  color: #000000;
+  line-height: 1;
+  margin-bottom: 0.2rem;
+}
+
+.section-title {
+  font-weight: 800;
+  font-size: 1.35rem;
+  color: #F4F6FB;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  margin-bottom: 0.3rem;
+}
+
+.section-subtitle {
+  font-size: 0.85rem;
+  color: #9DB0CF;
+  font-weight: 500;
+  margin-top: 0.4rem;
+}
+
+.content {
+  padding: 0 3rem 2rem;
+}
+
+.page-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 3rem 1.2rem;
+  border-top: 1px solid rgba(195, 145, 46, 0.15);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 6pt;
+  text-transform: uppercase;
+}
+
+/* ── HOW-TO ── */
+.howto-step {
+  padding: 0.55rem 0;
+  border-bottom: 1px solid rgba(105, 120, 154, 0.1);
+  font-size: 9pt;
+}
+.step-num, .rule-num {
+  font-weight: 800;
+  color: #C3912E;
+  margin-right: 0.3rem;
+  font-size: 8pt;
+}
+
+/* ── THREADS ── */
+.thread-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  padding: 0.8rem 0;
+}
+.thread-card {
+  border-left: 3px solid #C3912E;
+  padding: 0.6rem 0.8rem;
+  font-size: 8.5pt;
+  color: #9DB0CF;
+  line-height: 1.4;
+}
+.thread-card strong {
+  display: block;
+  font-size: 8pt;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #F2CC6A;
+  margin-bottom: 0.2rem;
+}
+
+.highlight-quote {
+  border-left: 3px solid #E8B949;
+  padding: 0.8rem 1.2rem;
+  margin: 1rem 0;
+  font-size: 9pt;
+  color: #9DB0CF;
+}
+.highlight-quote strong {
+  color: #E8B949;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 8.5pt;
+}
+
+/* ── RULES ── */
+.rule-item {
+  padding: 0.45rem 0;
+  border-bottom: 1px solid rgba(105, 120, 154, 0.1);
+  font-size: 9pt;
+}
+
+/* ── MENTAL MODEL ── */
+.mental-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  padding: 0.8rem 0;
+}
+.mental-card {
+  border: 1px solid rgba(195, 145, 46, 0.15);
+  padding: 1rem 1.2rem;
+  font-size: 8.5pt;
+}
+.card-title {
+  font-weight: 700;
+  font-size: 9pt;
+  color: #EDF2FA;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+
+/* ── SPLIT GRID ── */
+.split-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  padding: 0.5rem 0;
+}
+.split-col {
+  border: 1px solid rgba(195, 145, 46, 0.15);
+  padding: 1rem;
+}
+.col-heading {
+  font-weight: 700;
+  font-size: 9.5pt;
+  color: #EDF2FA;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+
+/* ── TABLES ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.8rem 0;
+  font-size: 8.5pt;
+}
+thead { border-bottom: 1px solid rgba(195, 145, 46, 0.3); }
+th {
+  color: #C3912E;
+  font-weight: 600;
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+  font-size: 7.5pt;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+td {
+  padding: 0.35rem 0.6rem;
+  border-bottom: 1px solid rgba(105, 120, 154, 0.1);
+  color: #9DB0CF;
+}
+
+/* ── EV STEPS ── */
+.ev-step {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(105, 120, 154, 0.08);
+  font-size: 9pt;
+}
+
+/* ── WORKED EXAMPLE ── */
+.worked-example {
+  border: 1px solid rgba(232, 185, 73, 0.2);
+  padding: 1rem 1.2rem;
+  margin: 1rem 0;
+  font-size: 9pt;
+}
+.worked-title {
+  font-weight: 700;
+  font-size: 8.5pt;
+  color: #E8B949;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+/* ── WARNING ── */
+.warning-box {
+  border: 1px solid rgba(217, 139, 114, 0.3);
+  padding: 1rem 1.2rem;
+  margin: 1rem 0;
+  font-size: 9pt;
+}
+.warning-title {
+  font-weight: 700;
+  font-size: 8.5pt;
+  color: #D98B72;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+/* ── STRATEGY ── */
+.strategy-box {
+  border: 1px solid rgba(195, 145, 46, 0.15);
+  padding: 1rem 1.2rem;
+  margin: 1rem 0;
+}
+.strategy-title {
+  font-weight: 700;
+  font-size: 9pt;
+  color: #EDF2FA;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(195, 145, 46, 0.15);
+}
+.strategy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  font-size: 8pt;
+  line-height: 1.5;
+  color: #9DB0CF;
+}
+
+/* ── PSYCH ── */
+.psych-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+.psych-card {
+  border-left: 3px solid #C3912E;
+  padding: 0.6rem 0.8rem;
+  font-size: 8.5pt;
+  color: #9DB0CF;
+}
+.psych-card-title {
+  font-weight: 700;
+  font-size: 9pt;
+  color: #EDF2FA;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.3rem;
+}
+
+/* ── STREAK ── */
+.streak-protocol {
+  border: 1px solid rgba(195, 145, 46, 0.2);
+  padding: 1rem 1.2rem;
+  margin: 1rem 0;
+  font-size: 8.5pt;
+}
+.streak-title {
+  font-weight: 700;
+  font-size: 8.5pt;
+  color: #E8B949;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+/* ── INSIGHT ── */
+.insight-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+.insight-item {
+  border-top: 2px solid #C3912E;
+  padding: 0.6rem 0 0;
+  font-size: 8pt;
+  line-height: 1.4;
+  color: #9DB0CF;
+}
+
+/* ── MISTAKES ── */
+.mistake-item {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(105, 120, 154, 0.08);
+  font-size: 9pt;
+}
+.mistake-num {
+  font-weight: 800;
+  color: #C3912E;
+  font-size: 8pt;
+  margin-right: 0.3rem;
+}
+.fix {
+  padding: 0.3rem 0 0.3rem 0.8rem;
+  border-left: 2px solid #D98B72;
+  margin: 0.2rem 0 0 1rem;
+  font-size: 8pt;
+  color: rgba(157, 176, 207, 0.75);
+}
+
+/* ── IMPLEMENTATION ── */
+.impl-step {
+  padding: 0.45rem 0;
+  border-bottom: 1px solid rgba(105, 120, 154, 0.08);
+  font-size: 9pt;
+}
+
+/* ── METRIC ── */
+.metric-box {
+  border: 1px solid rgba(195, 145, 46, 0.15);
+  padding: 1rem 1.2rem;
+  margin: 0.8rem 0;
+  font-size: 9pt;
+  color: #9DB0CF;
+}
+.metric-formula {
+  padding: 0.5rem 0.8rem;
+  border: 1px solid rgba(232, 185, 73, 0.2);
+  text-align: center;
+  margin-bottom: 0.8rem;
+  font-size: 9pt;
+}
+.metric-formula strong { color: #E8B949; }
+
+/* ── MODEL FLOW ── */
+.model-flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  padding: 0.5rem 0;
+  font-size: 8pt;
+}
+.model-phase {
+  flex: 1;
+  border: 1px solid rgba(195, 145, 46, 0.15);
+  padding: 0.8rem;
+}
+.phase-label {
+  font-weight: 700;
+  font-size: 8pt;
+  color: #C3912E;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid rgba(195, 145, 46, 0.15);
+}
+.model-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #C3912E;
+  padding: 0 0.4rem;
+  font-weight: 700;
+}
+
+/* ── RUIN ── */
+.ruin-section {
+  border: 1px solid rgba(195, 145, 46, 0.15);
+  padding: 1rem 1.2rem;
+  margin: 0.8rem 0;
+  font-size: 9pt;
+  color: #9DB0CF;
+}
+
+/* ── GOAL CHAIN ── */
+.goal-chain {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0.5rem 0;
+  font-size: 7.5pt;
+  flex-wrap: wrap;
+}
+.chain-step {
+  border: 1px solid rgba(195, 145, 46, 0.1);
+  padding: 0.4rem 0.6rem;
+  text-align: center;
+  color: #9DB0CF;
+}
+.chain-label {
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #C3912E;
+  font-size: 6.5pt;
+  margin-bottom: 0.2rem;
+}
+.chain-arrow {
+  font-size: 1rem;
+  color: #C3912E;
+  font-weight: 700;
+  padding: 0 0.3rem;
+}
+.chain-result {
+  background: rgba(232, 185, 73, 0.15);
+  padding: 0.5rem 0.8rem;
+  font-weight: 800;
+  color: #E8B949;
+  font-size: 9pt;
+  text-align: center;
+}
+
+/* ── OUTRO ── */
+.outro-page {
+  background: #050D1A;
+  min-height: 297mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 3rem;
+}
+.outro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.2rem;
+  margin: 2rem 0;
+  width: 100%;
+  max-width: 700px;
+}
+.outro-item {
+  border: 1px solid rgba(195, 145, 46, 0.15);
+  padding: 1.2rem;
+  font-size: 8.5pt;
+  color: #9DB0CF;
+}
+.outro-item strong { color: #C3912E; }
+.outro-footer {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(195, 145, 46, 0.15);
+  font-size: 7.5pt;
+  color: #69789A;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ── MISC ── */
+strong { color: #EDF2FA; font-weight: 600; }
+em { color: #69789A; font-style: italic; }
+p { margin: 0 0 0.5rem; font-size: 9.5pt; }
+h3 {
+  font-weight: 600; font-size: 0.88rem; color: #C3912E;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  margin: 1.5rem 0 0.3rem;
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover-page">
+  <div class="cover-header">
+    <span>TITANS OF TOMORROW</span>
+    <span class="cover-label">EPISODE | COMPANION</span>
+  </div>
+  <div class="cover-headline">Trading Isn't<br>the Edge.</div>
+  <div class="cover-guest-label">GUEST</div>
+  <div class="cover-guest-name">JJ Simon · Prop Firm Trader</div>
+  <div class="cover-quote">"He turned $5,000 into $1.5M in payouts — by refusing to chase alpha."</div>
+  <div class="cover-instruction">Read this before you press play. It puts JJ's expected-value engine in your hands — the eval math, the funded math, the risk-of-ruin — so you leave with a profit model you can run, not notes you will never reopen.</div>
+  <div class="cover-footer">
+    <span class="cf-brand">TITANS OF TOMORROW</span>
+    <span class="cf-cta">READ BEFORE YOU WATCH</span>
+    <span class="cf-guest">JJ SIMON · PROP FIRM TRADER</span>
+  </div>
+</div>
+
+<!-- 01 - HOW TO USE -->
+<div class="section-page">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div class="section-title">H O W &nbsp; T O &nbsp; U S E &nbsp; T H I S &nbsp; C O M P A N I O N</div>
+    <div class="section-subtitle">Watch with this.</div>
+  </div>
+  <div class="content">
+    <div class="howto-step"><span class="step-num">01</span> Read the Profit Model first. The edge is the EV math around the rules, not the entry. Know the four inputs before you press play.</div>
+    <div class="howto-step"><span class="step-num">02</span> Keep the formula open and plug in your own numbers as he goes. This is a reality check, not admiration.</div>
+    <div class="howto-step"><span class="step-num">03</span> Hold eval and funded apart. They optimise for different things — switch context when he does.</div>
+    <div class="howto-step"><span class="step-num">04</span> Log every rule he names — trailing drawdown, consistency, static risk — and how it bends his behaviour.</div>
+    <div class="howto-step"><span class="step-num">05</span> Mark every mistake you recognise in your own trading. That shortlist is your homework.</div>
+    <div class="howto-step"><span class="step-num">06</span> Copy the method, not the strategy. The Fair Value entry is replaceable; the risk-of-ruin discipline is the point.</div>
+  </div>
+  <div class="page-footer">
+    <span class="cf-brand">TITANS OF TOMORROW</span>
+    <span class="cf-cta">READ BEFORE YOU WATCH</span>
+    <span class="cf-guest">JJ SIMON · PROP FIRM TRADER</span>
+  </div>
+</div>
+
+<!-- 02 - AT A GLANCE -->
+<div class="section-page">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div class="section-title">T H E &nbsp; E P I S O D E &nbsp; A T &nbsp; A &nbsp; G L A N C E</div>
+    <div class="section-subtitle">One idea, six threads.</div>
+  </div>
+  <div class="content">
+    <p>Everything JJ says routes back to a single instruction: stop hunting alpha, and engineer positive expected value around the rules you are actually playing.</p>
+    <div class="thread-grid">
+      <div class="thread-card"><strong>EV BEATS ALPHA</strong> Engineer the payout, not the call.</div>
+      <div class="thread-card"><strong>EVAL ≠ FUNDED</strong> Two problems, two solutions.</div>
+      <div class="thread-card"><strong>THE RULES ARE THE GAME</strong> Optimise to the rule set.</div>
+      <div class="thread-card"><strong>VOLUME OF SHOTS</strong> Twenty trades, not one. Positive expected value. Then volume.</div>
+      <div class="thread-card"><strong>STATIC EVERYTHING</strong> Fixed risk, stop, target.</div>
+      <div class="thread-card"><strong>RISK OF RUIN FIRST</strong> Survive, then compound.</div>
+    </div>
+    <div class="highlight-quote"><strong>THE CASINO INVERSION</strong> — Be the card counter, not the gambler chasing the big win.</div>
+  </div>
+  <div class="page-footer">
+    <span class="cf-brand">TITANS OF TOMORROW</span>
+    <span class="cf-cta">READ BEFORE YOU WATCH</span>
+    <span class="cf-guest">JJ SIMON · PROP FIRM TRADER</span>
+  </div>
+</div>
+
+<!-- 03 - TAKEAWAYS -->
+<div class="section-page">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div class="section-title">T H E &nbsp; H I G H - S I G N A L &nbsp; T A K E A W A Y S</div>
+    <div class="section-subtitle">Eight rules worth keeping.</div>
+  </div>
+  <div class="content">
+    <p>Transferable decision rules pulled straight from the conversation. Most survive even if you never touch a prop firm.</p>
+    <div class="rule-item"><span class="rule-num">01</span> The edge is the profit model, not the strategy. Most traders chase alpha; the real goal is money. Engineer positive EV around the rules and a slight edge prints.</div>
+    <div class="rule-item"><span class="rule-num">02</span> Optimise to the rule set, not the market. For any win rate and risk-reward, one firm's rules fit best. Simulate across them; trade the fit.</div>
+    <div class="rule-item"><span class="rule-num">03</span> Eval and funded are different problems. Eval: maximise P(target before max loss). Funded: maximise P(payout) × size. He runs different strategies on each.</div>
+    <div class="rule-item"><span class="rule-num">04</span> Make everything static. Fixed risk, fixed stop, fixed target — the only live decision is the entry. On a firm, static beats "technical" levels.</div>
+    <div class="rule-item"><span class="rule-num">05</span> Match risk-reward to the drawdown. A $3k target vs a $2k trailing drawdown is ~1:1.5 — trade that and pass more.</div>
+    <div class="rule-item"><span class="rule-num">06</span> Volume, not conviction. 20 trades a day at a slight edge compresses a month into a session — and turns ~98% of days green by sample size alone.</div>
+    <div class="rule-item"><span class="rule-num">07</span> Risk of ruin before returns. Size accounts so ruin is a few percent or less. He went from a 5% to a 0.5% risk of ruin.</div>
+    <div class="rule-item"><span class="rule-num">08</span> Only trade firms that pay. He has had ~$300k in payouts denied. Test a new firm with one account; scale in only once it pays.</div>
+  </div>
+  <div class="page-footer">
+    <span class="cf-brand">TITANS OF TOMORROW</span>
+    <span class="cf-cta">READ BEFORE YOU WATCH</span>
+    <span class="cf-guest">JJ SIMON · PROP FIRM TRADER</span>
+  </div>
+</div>
+
+<!-- 04 - MENTAL MODEL -->
+<div class="section-page">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div class="section-title">T H E &nbsp; M E N T A L &nbsp; M O D E L</div>
+    <div class="section-subtitle">How he frames the game.</div>
+  </div>
+  <div class="content">
+    <p>Before any tactic, JJ reframes what a prop firm even is — and that single reframe is where the whole method comes from.</p>
+    <div class="mental-grid">
+      <div class="mental-card">
+        <div class="card-title">THE HOUSE HAS A BAKED EDGE</div>
+        <p>A prop firm is a casino. The rules are structured so the most common live-trading approach does not work — that is how the house keeps its edge. If you trade a firm like a live account, you lose by design. They profit when the trader fails the eval. The eval fee is the cost of a ticket. Trailing drawdown and consistency rules are the house edge. Each funded payout is the casino paying out. You win by playing the odds at volume, not by one big hand. <strong>So the normal playbook is the losing playbook.</strong></p>
+      </div>
+      <div class="mental-card">
+        <div class="card-title">BE THE CARD COUNTER</div>
+        <p>The winning gambler does not fight the house — he counts cards and presses small, repeatable edges until thrown out. JJ does the same: a slight bias, sized to the rules, played as many times as possible.</p>
+      </div>
+    </div>
+    <h3>THE SPLIT THAT RUNS EVERYTHING</h3>
+    <p>One account type, two objectives.</p>
+    <div class="split-grid">
+      <div class="split-col">
+        <div class="col-heading">EVALUATION</div>
+        <p>Objective: hit the profit target before the max loss.</p>
+        <table><tr><td>MAXIMISE</td><td>P(target before max loss)</td></tr><tr><td>LEVER</td><td>risk-reward vs trailing DD</td></tr><tr><td>TYPICAL</td><td>~1 : 1.5, static</td></tr></table>
+      </div>
+      <div class="split-col">
+        <div class="col-heading">FUNDED</div>
+        <p>Objective: maximise expected value of payouts.</p>
+        <table><tr><td>MAXIMISE</td><td>P(payout) × payout size</td></tr><tr><td>LEVER</td><td>payout cadence, contract size</td></tr><tr><td>TYPICAL</td><td>bring to $10k, take $5k, repeat</td></tr></table>
+      </div>
+    </div>
+    <p>Why it matters: optimising both phases with one setting leaves money on the table. JJ changes risk-reward — and sometimes the whole strategy — between eval and funded, because they are mathematically different games.</p>
+  </div>
+  <div class="page-footer">
+    <span class="cf-brand">TITANS OF TOMORROW</span>
+    <span class="cf-cta">READ BEFORE YOU WATCH</span>
+    <span class="cf-guest">JJ SIMON · PROP FIRM TRADER</span>
+  </div>
+</div>
+
+<!-- 05 - PLAYBOOK -->
+<div class="section-page">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <div class="section-title">T H E &nbsp; G U E S T ' S &nbsp; P L A Y B O O K</div>
+    <div class="section-subtitle">The profit model.</div>
+  </div>
+  <div class="content">
+    <p>JJ does not start with a chart. He starts with the math that tells him whether the whole game is worth playing. Build it in this order — the entry comes last.</p>
+    <h3>THE EXPECTED-VALUE ENGINE — SIX STEPS</h3>
+    <div class="ev-step"><span class="step-num">01</span> <strong>Evaluation cost & pass rate</strong> — Two inputs run the eval phase: what an evaluation costs, and the share you pass. Track over at least 20–50 attempts.</div>
+    <div class="ev-step"><span class="step-num">02</span> <strong>Average cost to funded</strong> — His own term: if three evals cost $100 each and you pass one, your average cost to get one funded account is $300.</div>
+    <div class="ev-step"><span class="step-num">03</span> <strong>Payout probability × size</strong> — On the funded side, upside is P(payout) × payout size. He aims for ~30% pass rate and ~30% payout rate.</div>
+    <div class="ev-step"><span class="step-num">04</span> <strong>The EV ratio</strong> — Upside ÷ downside. He targets 3× return or better on evaluation spend. Below the base rate, do not play.</div>
+    <div class="ev-step"><span class="step-num">05</span> <strong>Risk of ruin → bankroll</strong> — With a ~5% payout chance, failing 20 in a row is 0.95²⁰. Size the bankroll so risk of ruin is a few percent or less.</div>
+    <div class="ev-step"><span class="step-num">06</span> <strong>Then, the entry</strong> — Only now does strategy matter. The model is the edge; the entry is the rounding.</div>
+    <div class="worked-example">
+      <div class="worked-title">WORKED EXAMPLE — A $10K MONTH</div>
+      33% pass × 33% payout = one $2,000 payout per nine evals. Nine evals at ~$100 cost $900 to win $2,000 — a 2× return. Repeat ten times.
+    </div>
+    <div class="warning-box">
+      <div class="warning-title">IF THE EV IS NOT THERE</div>
+      Then there is nothing to trade. A great entry on a bad rule set still loses. Find the firm whose rules fit your stats before you place a single trade.
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="cf-brand">TITANS OF TOMORROW</span>
+    <span class="cf-cta">READ BEFORE YOU WATCH</span>
+    <span class="cf-guest">JJ SIMON · PROP FIRM TRADER</span>
+  </div>
+</div>
+
+<!-- OUTRO -->
+<div class="outro-page">
+  <div class="section-title" style="font-size:2.5rem; margin-bottom:1rem;">KEEP THE LOOP GOING</div>
+  <p>Don't just close the tab. You downloaded this to trade the episode actively.</p>
+  <div class="outro-grid">
+    <div class="outro-item"><strong>→ Watch the episode now</strong><br>Keep this open and build your EV model alongside his.</div>
+    <div class="outro-item"><strong>→ Subscribe</strong><br>New trader playbooks — be there for the next one.</div>
+    <div class="outro-item"><strong>→ Watch another episode</strong><br>Same active format, a different Titan.</div>
+  </div>
+  <div class="outro-footer">Go deeper on the fundamentals with Waqar Asim — our education channel.<br>READ BEFORE YOU WATCH · TRADE AFTER · WATCH →</div>
+</div>
+
+</body>
+</html>

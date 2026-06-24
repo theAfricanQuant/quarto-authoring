@@ -1,0 +1,75 @@
+---
+title: "Colorful PDF Demo"
+subtitle: "Testing WeasyPrint vs Typst"
+author: "SisengAI"
+date: today
+format:
+  html:
+    self-contained: true
+    embed-resources: true
+    css: demo.css
+    toc: false
+  typst:
+    papersize: a4
+    margin:
+      x: 2.5cm
+      y: 2cm
+---
+
+## What this is
+
+A single `.qmd` file rendered through two pipelines:
+- **WeasyPrint**: HTML → CSS → PDF
+- **Typst**: Markdown → Typst → PDF
+
+Both avoid LaTeX entirely.
+
+## Colored box (CSS → WeasyPrint only)
+
+::: {.amber-box}
+This is an amber-colored box with a gradient background. In WeasyPrint it will look gorgeous. In Typst it falls back to a plain div.
+:::
+
+## Typst-native colored block
+
+::: {.block fill="rgb(50, 18, 8)" inset="14pt" radius="6pt"}
+
+[**Dark mahogany block**]{style="color: #FDFBF7"}
+
+This block uses Typst's native `block()` function via the `.block` class. Works in both routes but designed for Typst.
+
+:::
+
+## Inline color
+
+Here is [amber inline text]{style="color: #D4720A; font-weight: bold"} and here is [text with a blue background]{style="background-color: #2563EB; color: white; padding: 2pt"}.
+
+## Code block
+
+```python
+def greet(name: str) -> str:
+    return f"Hello, {name}!"
+
+print(greet("SisengAI"))
+```
+
+## A table
+
+| Method     | Color Power | Setup    |
+| ---------- | ----------- | -------- |
+| WeasyPrint | Full CSS    | Easy     |
+| Typst      | Good        | Moderate |
+
+## Final note
+
+Render with:
+
+```bash
+# WeasyPrint
+quarto render demo.qmd --to html && weasyprint demo.html ~/Documents/pdf-outputs/demo-weasy.pdf
+
+# Typst
+quarto render demo.qmd --to typst -o ~/Documents/pdf-outputs/demo-typst.pdf
+```
+
+Then compare the two PDFs side by side.
