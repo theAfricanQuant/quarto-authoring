@@ -1020,6 +1020,9 @@ Only when converting existing projects. Do NOT read for new Quarto documents:
 - [Typst Universe (packages)](https://typst.app/universe/)
 - [Typst Forum](https://forum.typst.app/)
 - [Official Typst templates](https://github.com/typst/templates)
+- [Awesome Typst](https://github.com/qjcg/awesome-typst) — curated directory of 300+ tools, templates, and libraries
+- Python bindings: [typst-py](https://github.com/messense/typst-py) (compile .typ from Python), [pypst](https://github.com/tilman151/pypst) (declarative Typst in Python), [mpl-typst](https://github.com/daskol/mpl-typst) (Matplotlib→Typst backend)
+- Formatter: [typstyle](https://github.com/typstyle-rs/typstyle) — opinionated Typst code formatter
 
 **Discussions & examples:**
 - [Typst template parity #10223](https://github.com/orgs/quarto-dev/discussions/10223)
