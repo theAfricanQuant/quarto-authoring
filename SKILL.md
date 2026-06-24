@@ -364,6 +364,34 @@ quarto add quarto-ext/orange-book
 format: orange-book-typst
 ```
 
+### Typst Books (bookly)
+
+Third-party extension with 6 visual themes, LOF/LOT, and Tufte layout:
+```bash
+quarto add maucejo/quarto-bookly
+```
+```yaml
+project:
+  type: book
+book:
+  title: "My Book"
+  chapters: [index.qmd, chapters/intro.qmd]
+  appendices: [appendices/appendixA.qmd]
+format:
+  bookly-typst:
+    theme: modern           # classic, modern, fancy, obook, orly, pretty
+    toc: true
+    lof: true               # list of figures
+    lot: true               # list of tables
+    tufte: false            # Tufte-style margin notes
+    part-numbering: "1"     # "A", "I", etc.
+    colors:
+      primary: rgb("#2563EB")
+    fonts:
+      body: "Lato"
+```
+Maps callouts to bookly info boxes. Requires Quarto >= 1.9.17.
+
 ### Multi-Chapter Typst ({{< include >}})
 
 Without a book project, use a master `.qmd`:
