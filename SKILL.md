@@ -822,6 +822,8 @@ Content with gray background.
 |---|---|---|
 | `charged-ieee` | `quarto-ext/typst-templates/ieee` | IEEE papers |
 | `unequivocal-ams` | `quarto-ext/typst-templates/ams` | AMS math papers |
+| `Typst-Paper-Template` | *no wrapper* | General working paper |
+| `LaPreprint` | *no wrapper* | Beautiful preprints |
 | `appreciated-letter` | `quarto-ext/typst-templates/letter` | Formal letters |
 | `dashing-dept-news` | `quarto-ext/typst-templates/dept-news` | Newsletters |
 | `wonderous-book` | `quarto-ext/typst-templates/fiction` | Fiction books |
