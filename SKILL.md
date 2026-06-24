@@ -762,6 +762,41 @@ quarto create extension format   # pick typst, name it
 
 Generates: `_extension.yml`, `typst-template.typ`, `typst-show.typ`, `template.qmd`.
 
+### Template patterns & tips
+
+**Heading level shift:** Quarto shifts Typst headings up one level on render. A QMD `# Heading` becomes Typst level 2. Design show rules accordingly (target `where(level: 2)` for QMD-level-1 headings).
+
+**Custom functions** (callable from both template and `{=typst}` chunks):
+```typst
+#let blueline() = { line(length: 100%, stroke: 2pt + rgb("#68ACE5")) }
+#let source_text(src) = { align(right, text(src, font: "Bitter", size: 9pt, style: "italic")) }
+```
+
+**Date formatting:**
+```yaml
+date: September 2025
+date-format: "MMMM YYYY"   # "September 2025" instead of "2025-09-01"
+```
+
+**Columns via layout-ncol** (works in Typst output):
+```markdown
+:::{layout-ncol=2}
+![Image 1](img1.svg)
+![Image 2](img2.svg)
+:::
+```
+
+**HTML divs for backgrounds** (Quarto translates CSS → Typst):
+```html
+<div style="background-color: #F8F8F8;">
+Content with gray background.
+</div>
+```
+
+**`#` hash rule:** Inside brackets `[...]`, use `#` before function calls. In `{=typst}` chunks, also use `#`. Example: `#blueline()`, `#text(fill: white)[Title]`.
+
+**Tools:** [Typst LSP](https://open-vsx.org/extension/nvarner/typst-lsp) (tooltips/autocomplete), [Tinymist](https://open-vsx.org/extension/myriad-dreamin/tinymist) (formatter), both for Positron/VS Code.
+
 ### Premade Typst templates
 
 | Typst template | Quarto wrapper | Use |
