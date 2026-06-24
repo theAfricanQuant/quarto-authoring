@@ -833,6 +833,8 @@ Content with gray background.
 | `icicle`, `badformer` | *no wrapper* | Presentation slides |
 | `typst-invoice` | *no wrapper* | Invoice generator (TOML→PDF) |
 | `typst-palettes` | *no wrapper* | Color palette library |
+| `typst-timetable` | *no wrapper* | Class/timetable schedules |
+| `showybox` | *no wrapper* | Colorful customizable boxes |
 
 Install: `quarto use template quarto-ext/typst-templates/<name>`. Full list: [github.com/typst/templates](https://github.com/typst/templates).
 
