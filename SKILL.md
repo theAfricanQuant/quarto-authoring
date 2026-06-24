@@ -829,6 +829,8 @@ Content with gray background.
 | `orange-book` | Bundled (book projects) | Technical books |
 | `cereal-words` | *no wrapper* | Resume/CV |
 | `icicle`, `badformer` | *no wrapper* | Presentation slides |
+| `typst-invoice` | *no wrapper* | Invoice generator (TOML→PDF) |
+| `typst-palettes` | *no wrapper* | Color palette library |
 
 Install: `quarto use template quarto-ext/typst-templates/<name>`. Full list: [github.com/typst/templates](https://github.com/typst/templates).
 
