@@ -833,6 +833,10 @@ Content with gray background.
 | `bare-bones-cv` | *no wrapper* | Minimal single-page CV |
 | `imprecv` | *no wrapper* | YAML-driven CV (version control) |
 | `billryan-typst` | *no wrapper* | Simple minimalist resume |
+| `modern-typst-resume` | *no wrapper* | Modern resume + cover letter |
+| `typst-blue-header-cv` | *no wrapper* | Two-column with blue header |
+| `typst-cv-miku` | *no wrapper* | Academic CV (EN/ZH) |
+| `typst-cv-template1` | *no wrapper* | Graduate CV style |
 | `icicle`, `badformer` | *no wrapper* | Presentation slides |
 | `typst-invoice` | *no wrapper* | Invoice generator (TOML→PDF) |
 | `typst-palettes` | *no wrapper* | Color palette library |
