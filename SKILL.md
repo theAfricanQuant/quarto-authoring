@@ -831,7 +831,8 @@ Content with gray background.
 | `orange-book` | Bundled (book projects) | Technical books |
 | `cereal-words` | *no wrapper* | Resume/CV |
 | `bare-bones-cv` | *no wrapper* | Minimal single-page CV |
-| `imprecv` | *no wrapper* | YAML-driven CV (easy version control) |
+| `imprecv` | *no wrapper* | YAML-driven CV (version control) |
+| `billryan-typst` | *no wrapper* | Simple minimalist resume |
 | `icicle`, `badformer` | *no wrapper* | Presentation slides |
 | `typst-invoice` | *no wrapper* | Invoice generator (TOML→PDF) |
 | `typst-palettes` | *no wrapper* | Color palette library |
