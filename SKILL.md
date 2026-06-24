@@ -828,6 +828,7 @@ Content with gray background.
 | `typst-poster` | `quarto-ext/typst-templates/poster` | Academic posters |
 | `orange-book` | Bundled (book projects) | Technical books |
 | `cereal-words` | *no wrapper* | Resume/CV |
+| `bare-bones-cv` | *no wrapper* | Minimal single-page CV |
 | `icicle`, `badformer` | *no wrapper* | Presentation slides |
 | `typst-invoice` | *no wrapper* | Invoice generator (TOML→PDF) |
 | `typst-palettes` | *no wrapper* | Color palette library |
