@@ -764,6 +764,25 @@ Generates: `_extension.yml`, `typst-template.typ`, `typst-show.typ`, `template.q
 
 ### Template patterns & tips
 
+**Parameterized reports:** Pass Quarto `params` to Typst via the show file:
+```yaml
+# QMD frontmatter:
+params:
+  species: "Penguin"
+```
+```typst
+// typst-show.typ:
+#show: article.with(
+  species: "$params.species$",
+)
+```
+```typst
+// typst-template.typ uses `species` as a variable throughout.
+```
+Useful for batch-rendering per-state/product/category reports.
+
+**Colored sidebar:** Add a persistent colored strip to every page via `set page(background: place(top, rect(width: 2cm, height: 100%, fill: ...)))`.
+
 **Heading level shift:** Quarto shifts Typst headings up one level on render. A QMD `# Heading` becomes Typst level 2. Design show rules accordingly (target `where(level: 2)` for QMD-level-1 headings).
 
 **Custom functions** (callable from both template and `{=typst}` chunks):
