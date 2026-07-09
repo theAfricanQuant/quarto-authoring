@@ -1,0 +1,22 @@
+[
+  {"query": "make me a modern one-page cv as a pdf. name Ricky Macharm, financial engineer, i want a navy header and gold accents, nothing that needs latex installed", "should_trigger": true},
+  {"query": "i want to start a blog about quant finance. i write mostly python in jupyter notebooks and want everything version controlled in git, with an rss feed people can subscribe to", "should_trigger": true},
+  {"query": "convert my bookdown project in ~/projects/rbook to something more modern, i heard bookdown is basically dead now", "should_trigger": true},
+  {"query": "my quarto site renders fine on my laptop but the github action keeps dying trying to install jupyter and my requirements.txt. why does CI even need python??", "should_trigger": true},
+  {"query": "how do i get a dark mode toggle on my quarto website? theme is cosmo right now", "should_trigger": true},
+  {"query": "im writing a short technical book and want a website, pdf and epub all from the same source files. no latex please, last time tinytex broke everything", "should_trigger": true},
+  {"query": "typst is eating my dollar signs — i have \\$ 5,000 in typst-show.typ and it just disappears in the rendered pdf", "should_trigger": true},
+  {"query": "i have a report.qmd that renders to pdf, boss wants it 'branded': dark navy pages, gold section headings, our logo in the footer", "should_trigger": true},
+  {"query": "need slides for a conference talk based on my analysis notebook — want incremental bullets, speaker notes, and a pdf handout version", "should_trigger": true},
+  {"query": "how do i add categories and an about page to my quarto blog? also comments would be nice, i have a github account", "should_trigger": true},
+  {"query": "write me a 800 word blog post about the new EU AI act for our company wordpress, seo-friendly title please", "should_trigger": false},
+  {"query": "extract all the tables from this annual-report.pdf into an excel file, one sheet per table", "should_trigger": false},
+  {"query": "my latex thesis won't compile — 'undefined control sequence \\citep' in chapter3.tex, i'm using overleaf", "should_trigger": false},
+  {"query": "set up a next.js site with app router and a blog section using mdx files", "should_trigger": false},
+  {"query": "github actions workflow that runs pytest and ruff on every push to main, python 3.12", "should_trigger": false},
+  {"query": "make me a powerpoint summarizing the q2 numbers in sales.xlsx, our template is in brand/template.pptx", "should_trigger": false},
+  {"query": "the navbar on my hugo site overlaps the logo on mobile, css is in themes/paper/assets — can you fix it", "should_trigger": false},
+  {"query": "generate invoice pdfs from these json files using reportlab, we already use it everywhere else", "should_trigger": false},
+  {"query": "whats the difference between epub2 and epub3? just curious which one kindle uses", "should_trigger": false},
+  {"query": "our sphinx docs need a new page documenting the /v2/orders endpoint, rst format", "should_trigger": false}
+]
