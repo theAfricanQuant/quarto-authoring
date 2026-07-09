@@ -1,14 +1,17 @@
 # quarto-authoring
 
-Comprehensive Quarto skill — documents, books, Typst/WeasyPrint PDFs, custom templates, and presentations.
+Comprehensive Quarto + Typst skill — documents, websites, blogs, books (PDF/EPUB), Typst/WeasyPrint PDFs, custom templates, presentations, and publishing.
 
 ## What's inside
 
 - **QMD Essentials** — markdown, cross-refs, callouts, figures, tables, citations, code cells, divs/spans
-- **Books** — chapters, parts, appendices, numbering, execution (freeze/cache), navbar, sidebar, listings, social metadata
-- **Typst PDFs** — page layout, fonts, TOC, syntax highlighting, typst-show.typ templates, Pandoc escaping, orange-book, premade templates, brand.yml
+- **Websites & Blogs** — navigation, themes/SCSS, dark mode, search, listings, categories, RSS, about pages, comments
+- **Books** — chapters, parts, appendices, numbering, execution (freeze/cache), navbar, sidebar, social metadata
+- **EPUB** — multi-format books (HTML+PDF+EPUB), cover images, store metadata, epubcheck, Kindle
+- **Typst PDFs** — page layout, fonts, TOC, syntax highlighting, typst-show.typ templates, Pandoc escaping, orange-book, CV/resume/paper templates, brand.yml
 - **WeasyPrint PDFs** — standalone HTML+CSS, Bootstrap workaround, dark theme support
-- **Presentations** — revealjs, pptx, beamer
+- **Presentations** — revealjs (deep), pptx, beamer, Typst slides
+- **Publishing** — quarto publish, GitHub Pages, Netlify, GitHub Actions, freeze CI pattern
 - **Migration** — from R Markdown, bookdown, xaringan, distill, blogdown, Jupyter
 
 ## Install
@@ -38,9 +41,8 @@ format:
 ## File structure
 
 ```
-SKILL.md              # Main skill instructions (945 lines)
-references/           # 21 detailed reference files
+SKILL.md              # Main skill instructions
+references/           # 26 detailed reference files
 examples/             # Demo QMD, standalone HTML, CSS
 scripts/              # Render-demo.sh runner
-typst-template/       # typst-show.typ for Typst custom templates
 ```

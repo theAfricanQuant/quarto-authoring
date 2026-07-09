@@ -1,6 +1,6 @@
 ---
 name: quarto-authoring
-description: Comprehensive Quarto skill covering authoring (QMD syntax, cross-refs, callouts, figures, tables, citations, code cells, divs/spans), books (chapters, parts, appendices, numbering, execution, navbar, sidebar, listings, social metadata), PDF output via Typst (page layout, fonts, typst-show.typ templates, pandoc escaping, orange-book, premade templates, brand.yml), and PDF output via WeasyPrint (standalone HTML+CSS, Bootstrap workaround). Also covers presentations, project setup, and migration from R Markdown/bookdown. Use for any Quarto question.
+description: Comprehensive Quarto + Typst skill covering authoring (QMD syntax, cross-refs, callouts, figures, tables, citations, code cells, divs/spans), websites and blogs (navigation, themes/SCSS, dark mode, listings, categories, RSS, about pages, comments), books in PDF and EPUB (chapters, parts, appendices, multi-format output, cover images, e-reader metadata), PDF output via Typst (page layout, fonts, typst-show.typ templates, pandoc escaping, orange-book, CV/resume/paper templates, brand.yml) and WeasyPrint (standalone HTML+CSS), presentations (revealjs, pptx, beamer, Typst slides), publishing/deployment (quarto publish, GitHub Pages, Netlify, GitHub Actions, freeze CI pattern), and migration from R Markdown/bookdown/blogdown/Jupyter. Use for any question about Quarto, Typst documents or templates, .qmd files, building a blog or personal website, writing a book or ebook, making a CV or resume PDF, or rendering/publishing any of these.
 metadata:
   author: SisengAI (merged from quarto-authoring, quarto-book-structure, colorful-pdf)
   version: "2.0"
@@ -169,9 +169,13 @@ Details: [references/markdown-linting.md](references/markdown-linting.md)
 
 ---
 
-## 2. Projects
+## 2. Websites & Blogs
 
 ### Website Project
+
+```bash
+quarto create project website mysite && cd mysite && quarto preview
+```
 
 ```yaml
 # _quarto.yml
@@ -189,8 +193,39 @@ website:
 
 format:
   html:
-    theme: cosmo
+    theme: cosmo          # or {light: flatly, dark: darkly} for a dark-mode toggle
 ```
+
+Navigation (navbar/sidebar/hybrid), 25+ themes + custom SCSS, dark mode, search, drafts, redirects, social cards, announcement bars, multi-format pages: [references/websites.md](references/websites.md)
+
+### Blog Project
+
+```bash
+quarto create project blog myblog
+```
+
+A blog = website + listing homepage + `posts/` directory (one folder per post) + categories + RSS:
+
+```yaml
+# index.qmd front matter
+listing:
+  contents: posts
+  sort: "date desc"
+  categories: true
+  feed: true              # RSS at index.xml (needs site-url in _quarto.yml)
+```
+
+Key pattern — `posts/_metadata.yml` with `freeze: true` so old posts never re-execute.
+
+Post front matter, listing types, about-page templates (jolla/trestles/solana/marquee/broadside), comments (giscus/utterances), drafts, RSS options: [references/blogging.md](references/blogging.md)
+
+### Publishing (websites, blogs, books)
+
+```bash
+quarto publish gh-pages       # also: quarto-pub, netlify, connect, confluence, huggingface
+```
+
+CI pattern: `execute: freeze: auto` → render locally → commit `_freeze/` → GitHub Actions renders without R/Python. Full workflows: [references/publishing.md](references/publishing.md)
 
 ---
 
@@ -520,6 +555,30 @@ Types: `default`, `table`, `grid`, `custom`. Options: `sort`, `max-items`, `page
 | `favicon`, `site-url` | Site identity |
 | `repo-url`, `repo-actions` | Source repository links (`edit`, `source`, `issue`) |
 | `output-file` | Output filename (no extension) |
+
+### EPUB & Multi-Format Books
+
+One book source → website + PDF + ebook, with download buttons:
+
+```yaml
+book:
+  cover-image: cover.png
+  downloads: [pdf, epub]
+
+format:
+  html:
+    theme: cosmo
+  typst: default
+  epub:
+    identifier: "urn:isbn:9780123456789"   # stable ID for store submission
+```
+
+```bash
+quarto render                # all formats → _book/
+quarto render --to epub      # just the .epub
+```
+
+EPUB metadata, cover sizing, CSS constraints, font embedding, chapter splitting, epubcheck validation, Kindle/KDP notes: [references/epub.md](references/epub.md)
 
 ---
 
@@ -948,7 +1007,7 @@ Typst templates read via `brand-color.primary`, `brand-color.secondary`. `fancy`
 
 ## 8. Presentations
 
-Formats: `revealjs` (HTML), `pptx` (PowerPoint), `beamer` (LaTeX/PDF).
+Formats: `revealjs` (HTML), `pptx` (PowerPoint), `beamer` (LaTeX/PDF), plus standalone Typst decks (touying/polylux).
 
 ```yaml
 ---
@@ -969,6 +1028,8 @@ format: revealjs
 ```
 
 Level-1 headings create section title slides. Horizontal rules (`---`) create slides without titles.
+
+Incremental lists, columns, code line stepping, speaker notes, slide backgrounds, fragments/auto-animate, custom SCSS themes, PDF export, pptx reference-doc templates, beamer, Typst slides: [references/presentations.md](references/presentations.md)
 
 ---
 
@@ -1018,6 +1079,10 @@ Only when converting existing projects. Do NOT read for new Quarto documents:
 
 **Quarto docs:**
 - [Quarto Documentation](https://quarto.org/docs/)
+- [Websites](https://quarto.org/docs/websites/) · [Blogs](https://quarto.org/docs/websites/website-blog.html) · [Listings](https://quarto.org/docs/websites/website-listings.html)
+- [Books](https://quarto.org/docs/books/) · [EPUB format](https://quarto.org/docs/reference/formats/epub.html)
+- [Publishing](https://quarto.org/docs/publishing/) · [GitHub Actions](https://github.com/quarto-dev/quarto-actions)
+- [Presentations](https://quarto.org/docs/presentations/) · [Reveal.js options](https://quarto.org/docs/reference/formats/presentations/revealjs.html)
 - [Quarto Extensions](https://quarto.org/docs/extensions/)
 - [Community Extensions](https://m.canouil.dev/quarto-extensions/)
 - [Typst Basics](https://quarto.org/docs/output-formats/typst.html)
