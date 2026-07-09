@@ -1,0 +1,33 @@
+{
+  "skill_name": "quarto-authoring",
+  "evals": [
+    {
+      "id": 0,
+      "name": "blog-with-rss-darkmode",
+      "prompt": "set up a quarto blog for me called 'data-bites'. i want post categories and an RSS feed working, a dark mode toggle, and an about page using the trestles layout. render it and make sure the feed actually gets generated",
+      "expected_output": "A rendered blog project: _quarto.yml (website project, site-url + description set), index.qmd listing with categories+feed, light/dark theme pair, about.qmd with template: trestles, _site/index.xml present",
+      "files": []
+    },
+    {
+      "id": 1,
+      "name": "book-pdf-epub-multiformat",
+      "prompt": "im writing a short book (3 chapters is fine as placeholders) and i want ONE quarto project that gives me a website, a PDF without installing any LaTeX, and an epub with a cover image that i could submit to a store later. set it up and render all three outputs",
+      "expected_output": "A book project rendering _book/ with index.html, a Typst-generated PDF, and an .epub containing the cover image and a stable identifier; downloads: [pdf, epub] configured",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "typst-cv-custom-template",
+      "prompt": "make me a one-page CV pdf with quarto and typst — no latex. name: Ricky Macharm, title: Financial Engineer, sections for experience, education and skills with placeholder content. i want a custom look: navy blue header band with my name in white, gold accent color for section headings",
+      "expected_output": "A .qmd + typst-show.typ (template-partials) rendering a single-page PDF via format: typst with the requested navy/gold styling",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "gh-pages-ci-freeze",
+      "prompt": "my quarto website has python code chunks in it. i want it to auto-publish to github pages on every push to main WITHOUT github actions needing to install python or run my notebooks. set up whatever files are needed and explain the one-time steps i have to run myself",
+      "expected_output": ".github/workflows/publish.yml using quarto-dev/quarto-actions with target gh-pages, freeze: auto in _quarto.yml, instructions to render locally, commit _freeze/, and run quarto publish gh-pages once",
+      "files": []
+    }
+  ]
+}

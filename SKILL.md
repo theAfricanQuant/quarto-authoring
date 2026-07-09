@@ -391,6 +391,13 @@ format: typst
 
 Features: chapter numbering, decorative headers, parts/appendices, styled TOC, `_brand.yml` integration.
 
+**Bibliography gotcha:** in Typst books with citations + a `references.qmd` chapter, Typst's native bibliography leaves the References chapter empty and appends its own duplicate "Bibliography" chapter. Fix with:
+```yaml
+format:
+  typst:
+    citeproc: true
+```
+
 Explicit format:
 ```bash
 quarto add quarto-ext/orange-book
@@ -802,6 +809,10 @@ format:
 **`$` signs:** Pandoc strips `\$` in `typst-show.typ`. Use `#let d = sym.dollar` then `["He turned #d 5,000"]`.
 
 **Variable escaping:** Use `[$variable$]` (content blocks) instead of `"$variable$"` (strings).
+
+**Injected page number:** Quarto's built-in Typst template emits `#set page(numbering: "1")` even for custom templates. For one-pagers (CVs, letters), suppress it: `page-numbering: false` in YAML, or `set page(numbering: none)` inside your template's show rule.
+
+**Dashes in strings:** Typst only shapes `--` → en dash and `---` → em dash in *markup*, not inside string literals (`"2019--2023"` renders literally). Use real dash characters (– —) or content blocks (`[2019--2023]`).
 
 **`to-string()` helper:**
 ```typst
