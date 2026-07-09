@@ -84,4 +84,24 @@ npm pack
 npm exec --yes --package=./quarto-authoring-skill-*.tgz -- quarto-authoring-skill --dir /tmp/skill-test
 ```
 
-Task evals live in `evals/evals.json` (4 end-to-end scenarios: blog+RSS, multi-format book, Typst CV, GitHub Pages CI) and `evals/trigger-eval.json` (20 should/shouldn't-trigger queries for description tuning).
+### Running the evals
+
+The `evals/` directory is the skill's test suite — run it after any meaningful edit so you know whether the change helped or broke something.
+
+**Task evals** (`evals/evals.json` — 4 end-to-end scenarios: blog+RSS, multi-format book, Typst CV, GitHub Pages CI). These check that an agent *using the skill* produces working output. Easiest way — ask your agent:
+
+> run the evals in evals/evals.json against this skill and show me pass/fail per assertion
+
+It will spawn a fresh agent per scenario in a scratch folder with the skill installed, run the prompt, and verify the output against each eval's checks (RSS file exists, PDF is 1 page, workflow installs no Python, ...).
+
+To run one by hand instead:
+
+1. Install the edited skill somewhere isolated:
+   `npx github:theAfricanQuant/quarto-authoring --dir /tmp/skill-test`
+2. Open a **fresh** agent session in an empty folder (a session that already discussed the skill isn't a fair test)
+3. Paste one prompt from `evals.json` verbatim and let it finish
+4. Check the output against that eval's `expected_output` / assertions
+
+**Trigger evals** (`evals/trigger-eval.json` — 20 realistic queries labeled `should_trigger` true/false). These test the `description` field in SKILL.md frontmatter — whether the skill *activates* at the right moments — so only re-run them when you edit the description. Manual version: fresh session, paste a query, watch whether the agent loads the skill. The should-trigger queries are on-topic in disguise; the should-not-trigger ones are deliberate near-misses (WordPress posts, LaTeX theses, PowerPoint decks) that share keywords but belong to other tools.
+
+> **Important:** uninstall any other Quarto skill before running trigger evals — a competing skill intercepts the queries and makes every measurement read as "didn't trigger".
