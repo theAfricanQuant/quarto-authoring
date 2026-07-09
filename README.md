@@ -16,14 +16,30 @@ Comprehensive Quarto + Typst skill — documents, websites, blogs, books (PDF/EP
 
 ## Install
 
-### As an OpenCode skill
+### With npx (recommended)
+
+```bash
+npx quarto-authoring-skill              # Claude Code, user-wide (~/.claude/skills/)
+npx quarto-authoring-skill --project    # current project (./.claude/skills/)
+npx quarto-authoring-skill --opencode   # OpenCode (~/.config/opencode/skills/)
+npx quarto-authoring-skill --all        # Claude Code + OpenCode
+npx quarto-authoring-skill --dir <path> # anywhere else
+```
+
+Straight from GitHub (no npm registry needed):
+
+```bash
+npx github:theAfricanQuant/quarto-authoring
+```
+
+Re-run the same command any time to update. The skill auto-loads when you ask about Quarto, Typst, websites, blogs, books (PDF/EPUB), CVs, or publishing.
+
+### Manual (git clone)
 
 ```bash
 git clone git@github.com:theAfricanQuant/quarto-authoring.git \
   ~/.config/opencode/skills/quarto-authoring
 ```
-
-The skill auto-loads when you ask about Quarto, Typst PDFs, books, or colorful PDFs.
 
 ### As a Quarto extension (for `typst-show.typ` templates)
 
