@@ -28,6 +28,27 @@
       "prompt": "my quarto website has python code chunks in it. i want it to auto-publish to github pages on every push to main WITHOUT github actions needing to install python or run my notebooks. set up whatever files are needed and explain the one-time steps i have to run myself",
       "expected_output": ".github/workflows/publish.yml using quarto-dev/quarto-actions with target gh-pages, freeze: auto in _quarto.yml, instructions to render locally, commit _freeze/, and run quarto publish gh-pages once",
       "files": []
+    },
+    {
+      "id": 4,
+      "name": "scaffold-validate-report",
+      "prompt": "scaffold a new branded report project called quarterly-summary, add a status box showing 'Q3 Revenue: $1.2M', validate the project, then render the PDF",
+      "expected_output": "scripts/scaffold.py creates quarterly-summary/ with report.qmd, typst-show.typ, typst-template.typ, _brand.yml, pyproject.toml, and images/; scripts/validate.py reports [OK] with no missing-file errors; quarto render produces quarterly-summary/report.pdf using the status-box() helper",
+      "files": []
+    },
+    {
+      "id": 5,
+      "name": "dashboard-valuebox-tabset",
+      "prompt": "build a quarto dashboard called sales-dashboard with a value box showing total revenue, and a row below it with a tabset containing a chart tab and a table tab (placeholder data is fine). render it.",
+      "expected_output": "A format: dashboard .qmd rendering to HTML with a valuebox card (content: valuebox) for total revenue, a row with .tabset containing two cards (chart + table), and a successful quarto render with no errors",
+      "files": []
+    },
+    {
+      "id": 6,
+      "name": "manuscript-with-profiles",
+      "prompt": "set up a quarto manuscript project called reproducible-paper with one placeholder notebook exposed to readers, and add a dev/production profile pair where dev skips freeze and production enables it",
+      "expected_output": "project: type: manuscript in _quarto.yml with manuscript: article: + notebooks: listing the placeholder notebook; a _quarto-production.yml (or equivalent profile file) setting execute: freeze: false in dev and freeze: true in production (or vice versa per the prompt), switchable via --profile/QUARTO_PROFILE",
+      "files": []
     }
   ]
 }

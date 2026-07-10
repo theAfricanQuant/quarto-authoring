@@ -11,8 +11,14 @@ Comprehensive Quarto + Typst skill for AI coding agents (Claude Code, OpenCode, 
 - **Typst PDFs** — page layout, fonts, TOC, syntax highlighting, typst-show.typ templates, Pandoc escaping, orange-book, CV/resume/paper templates, brand.yml
 - **WeasyPrint PDFs** — standalone HTML+CSS, Bootstrap workaround, dark theme support
 - **Presentations** — revealjs (deep), pptx, beamer, Typst slides
+- **Dashboards** — rows/columns/pages, value boxes, cards, tabsets, sidebars/toolbars, static vs. Shiny-backed interactivity, deployment
+- **Interactivity** — Observable JS (reactive cells, data sources, cross-file imports), Shiny (R/Python), Jupyter widgets/htmlwidgets
+- **MS Word** — docx output, reference-doc templates for matching a corporate style
+- **Manuscripts** — notebook-first scholarly articles, journal formats, MECA bundles
+- **Projects** — profiles, pre/post-render scripts, virtual environments, Binder
 - **Publishing** — quarto publish, GitHub Pages, Netlify, GitHub Actions, freeze CI pattern
 - **Migration** — from R Markdown, bookdown, xaringan, distill, blogdown, Jupyter
+- **Report scaffolding** — `scripts/scaffold.py` / `validate.py` / `snippets.py` for repeatable, branded PDF-report projects (report.qmd + typst-show.typ + typst-template.typ + _brand.yml)
 
 ## Install
 
@@ -59,8 +65,13 @@ Nothing to invoke manually. Once installed, your agent auto-loads the skill when
 - "publish my quarto site to GitHub Pages without CI needing python"
 - "my typst template is eating dollar signs"
 - "convert my bookdown project to quarto"
+- "scaffold a branded Typst report project for this quarterly brief"
+- "build me a dashboard with a value box for revenue and a chart tab"
+- "add an interactive filter to my report without needing a server"
+- "set up a manuscript project so reviewers can see the notebooks behind my figures"
+- "give me a production profile that turns off freeze for a clean CI build"
 
-The agent reads `SKILL.md` first and pulls in the relevant file from `references/` (26 focused guides) only when needed, so it stays fast and doesn't flood its context.
+The agent reads `SKILL.md` first and pulls in the relevant file from `references/` (30 focused guides) only when needed, so it stays fast and doesn't flood its context.
 
 You need [Quarto](https://quarto.org) ≥ 1.5 installed for the agent to actually render things (≥ 1.9.17 for Typst book templates). Typst itself is bundled with Quarto — no LaTeX required for any of the PDF workflows in this skill.
 
@@ -68,9 +79,9 @@ You need [Quarto](https://quarto.org) ≥ 1.5 installed for the agent to actuall
 
 ```
 SKILL.md              # Main skill instructions (read first by the agent)
-references/           # 26 detailed reference files, loaded on demand
+references/           # 30 detailed reference files, loaded on demand
 examples/             # Demo QMD, standalone HTML, CSS
-scripts/              # render-demo.sh runner
+scripts/              # render-demo.sh runner + scaffold.py/validate.py/snippets.py for report projects
 bin/install.js        # the npx installer
 evals/                # test prompts + trigger queries used to validate the skill
 ```

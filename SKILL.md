@@ -1,9 +1,9 @@
 ---
 name: quarto-authoring
-description: Comprehensive Quarto + Typst skill covering authoring (QMD syntax, cross-refs, callouts, figures, tables, citations, code cells, divs/spans), websites and blogs (navigation, themes/SCSS, dark mode, listings, categories, RSS, about pages, comments), books in PDF and EPUB (chapters, parts, appendices, multi-format output, cover images, e-reader metadata), PDF output via Typst (page layout, fonts, typst-show.typ templates, pandoc escaping, orange-book, CV/resume/paper templates, brand.yml) and WeasyPrint (standalone HTML+CSS), presentations (revealjs, pptx, beamer, Typst slides), publishing/deployment (quarto publish, GitHub Pages, Netlify, GitHub Actions, freeze CI pattern), and migration from R Markdown/bookdown/blogdown/Jupyter. Use for any question about Quarto, Typst documents or templates, .qmd files, building a blog or personal website, writing a book or ebook, making a CV or resume PDF, or rendering/publishing any of these.
+description: Comprehensive Quarto + Typst skill covering authoring (QMD syntax, cross-refs, callouts, figures, tables, citations, code cells, divs/spans), websites and blogs (navigation, themes/SCSS, dark mode, listings, categories, RSS, about pages, comments), books in PDF and EPUB (chapters, parts, appendices, multi-format output, cover images, e-reader metadata), PDF output via Typst (page layout, fonts, typst-show.typ templates, pandoc escaping, orange-book, CV/resume/paper templates, brand.yml) and WeasyPrint (standalone HTML+CSS), MS Word/docx (reference-doc templates), presentations (revealjs, pptx, beamer, Typst slides), dashboards (rows/columns/pages, value boxes, cards, tabsets, sidebars), interactive documents (Observable JS, Shiny, Jupyter widgets/htmlwidgets), manuscripts (notebook-first scholarly articles, journal formats, MECA bundles), project configuration (profiles, pre/post-render scripts, virtual environments, Binder), publishing/deployment (quarto publish, GitHub Pages, Netlify, GitHub Actions, freeze CI pattern), and migration from R Markdown/bookdown/blogdown/Jupyter. Use for any question about Quarto, Typst documents or templates, .qmd files, building a blog or personal website, writing a book or ebook, making a CV or resume PDF, building a Quarto dashboard, adding interactivity (OJS/Shiny/widgets) to a document, writing a reproducible-research manuscript, configuring Quarto project profiles/scripts, or rendering/publishing any of these.
 metadata:
-  author: SisengAI (merged from quarto-authoring, quarto-book-structure, colorful-pdf)
-  version: "3.0"
+  author: SisengAI (merged from quarto-authoring, quarto-book-structure, colorful-pdf, quarto-typst-pdf)
+  version: "3.3"
 ---
 # Quarto Authoring
 
@@ -859,7 +859,66 @@ Useful for batch-rendering per-state/product/category reports.
 ```typst
 #let blueline() = { line(length: 100%, stroke: 2pt + rgb("#68ACE5")) }
 #let source_text(src) = { align(right, text(src, font: "Bitter", size: 9pt, style: "italic")) }
+#let status-box(top-box-text: "", bottom-box-text: "") = {
+  let top_box = box(width: 2in, height: 0.7in, fill: rgb("#002D72"), inset: 6pt,
+    align(center + horizon)[#text(fill: white, weight: "bold", size: 9pt)[#top-box-text]])
+  let bottom_box = box(width: 2in, height: 0.7in, fill: white, inset: 6pt,
+    align(center + horizon)[#text(fill: black, size: 14pt)[#bottom-box-text]])
+  stack(top_box, bottom_box, spacing: 0pt)
+}
 ```
+`status-box()` is the go-to for a KPI-style callout (e.g. "Q3 Revenue: $1.2M") in an executive-summary report.
+
+**Per-level heading show rule** (different size/case/alignment per level, in one function):
+```typst
+show heading: it => {
+  let sizes = ("1": 16pt, "2": 10pt)
+  let level = str(it.level)
+  let size = sizes.at(level)
+  let formatted_heading = if level == "1" { upper(it) } else { it }
+  let alignment = if level == "2" { center } else { left }
+
+  set text(font: "Bitter", fill: rgb("#002D72"), size: size, weight: "bold")
+  align(alignment)[#formatted_heading]
+}
+```
+Remember the heading-level-shift rule above when picking which level to key off of.
+
+**Footer built with `grid()`** (two-column: title left, date right, on a colored bar):
+```typst
+footer: {
+  rect(width: 100%, height: 0.75in, outset: (x: 15%), fill: rgb("#68ACE5"),
+    pad(top: 16pt, block([
+      #grid(columns: (75%, 25%),
+        align(left)[#text(upper(title), font: "Bitter", fill: white, weight: "bold")],
+        align(right)[#text(upper(date), font: "Bitter", fill: white, weight: "bold")],
+      )
+    ])),
+  )
+}
+```
+
+### Troubleshooting
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| Title/date disappear | Custom template overrides defaults | Pass them through explicitly in `typst-show.typ` |
+| Footer date shows raw ISO (`2025-09-01`) | Missing date format | Add `date-format: "MMMM YYYY"` |
+| Heading styles apply to the wrong level | Quarto's heading level shift | Style Typst level 1 for Quarto `##` (see above) |
+| Function prints as literal text | Missing `#` | Add `#` inside `[ ]` content brackets |
+| Template not applied at all | Partials not declared | Add `template-partials` to YAML `format.typst` |
+
+### Scaffolding a Branded Report Project
+
+For repeatable "PDF report from a brief" work — as opposed to one-off documents — `scripts/` has a small uv-run scaffolder:
+
+```bash
+uv run python scripts/scaffold.py my-report --title "My Report" --date "July 2026"
+uv run python scripts/validate.py my-report
+quarto render my-report/report.qmd
+```
+
+`scaffold.py` writes `report.qmd`, `typst-show.typ`, `typst-template.typ`, `_brand.yml`, `pyproject.toml`, and an `images/` folder, with `blueline()`/`source_text()`/`status-box()` already wired into the template. `validate.py` checks the YAML actually declares `template-partials` (and catches a stray `format: pdf`) before you waste a render on a template that silently won't apply. `snippets.py [name]` prints any one helper on its own — run with no argument to list what's available.
 
 **Date formatting:**
 ```yaml
@@ -874,6 +933,7 @@ date-format: "MMMM YYYY"   # "September 2025" instead of "2025-09-01"
 ![Image 2](img2.svg)
 :::
 ```
+Quarto has no native Typst multi-column construct — `layout-ncol` is a Quarto-level shortcut good for side-by-side images only. For anything more custom (mixed content, uneven widths, a footer split into columns), drop into a `{=typst}` chunk or template and use Typst's own `grid()` directly, e.g. `grid(columns: (75%, 25%), [left], [right])`.
 
 **HTML divs for backgrounds** (Quarto translates CSS → Typst):
 ```html
@@ -884,7 +944,7 @@ Content with gray background.
 
 **`#` hash rule:** Inside brackets `[...]`, use `#` before function calls. In `{=typst}` chunks, also use `#`. Example: `#blueline()`, `#text(fill: white)[Title]`.
 
-**Tools:** [Typst LSP](https://open-vsx.org/extension/nvarner/typst-lsp) (tooltips/autocomplete), [Tinymist](https://open-vsx.org/extension/myriad-dreamin/tinymist) (formatter), both for Positron/VS Code.
+**Tools:** [Typst LSP](https://open-vsx.org/extension/nvarner/typst-lsp) (tooltips/autocomplete), [Tinymist](https://open-vsx.org/extension/myriad-dreamin/tinymist) (formatter), [vscode-pdf](https://open-vsx.org/extension/tomoki1207/pdf) (inline PDF preview), all for Positron/VS Code.
 
 ### Premade Typst templates
 
@@ -1044,7 +1104,98 @@ Incremental lists, columns, code line stepping, speaker notes, slide backgrounds
 
 ---
 
-## 9. WeasyPrint vs Typst
+## 9. Dashboards
+
+```yaml
+---
+title: "Sales Dashboard"
+format: dashboard
+---
+```
+
+Level-2 headings become rows (or columns with `orientation: columns`); size with `{height=}`/`{width=}`. Each code cell is a **card**:
+
+```markdown
+## Row {height=60%}
+
+```{python}
+#| title: Revenue by Region
+# chart code
+```
+
+## Row {height=40%}
+```
+
+Level-1 headings create **pages** in a multi-page dashboard. `{.tabset}` on a row/column turns its cards into a tabset. `{.sidebar}`/`{.toolbar}` on a column/row holds input controls.
+
+**Value box** for a KPI metric:
+```markdown
+```{python}
+#| content: valuebox
+#| title: "Total Revenue"
+dict(value = "$1.2M", icon = "currency-dollar", color = "success")
+```
+```
+
+Dashboards are HTML under the hood — same `theme:`/SCSS/`_brand.yml` mechanism as websites applies. Interactivity is either static (OJS/widgets, deployable anywhere) or Shiny-backed (`server: shiny` in YAML, needs a Shiny server/Posit Connect — won't run on GitHub Pages/Netlify).
+
+Multi-page nav, parameterized dashboard variants, expandable cards, responsive behavior: [references/dashboards.md](references/dashboards.md)
+
+---
+
+## 10. Interactivity
+
+Three approaches, increasing infrastructure required:
+
+**Widgets** (Jupyter Widgets / htmlwidgets) — render to self-contained HTML+JS at build time, zero server, works in a static site or dashboard card as-is.
+
+**Observable JS (OJS)** — reactive, client-side, no server:
+```{ojs}
+viewof minimum = Inputs.range([-2, 2], {value: 1, step: 0.01, label: "minimum"})
+```
+Any cell referencing `minimum` re-runs automatically when the input moves. Deploys as pure static HTML.
+
+**Shiny** — reactive, server-backed (R or Python):
+```r
+selectInput("type", "Trend index", choices = unique(trend_data$type))
+output$lineplot <- renderPlot({ plot(x = selected_trends()$date, y = selected_trends()$close) })
+```
+Requires the knitr engine plus a running Shiny process (`server: shiny` in YAML) — needs a Shiny server/Posit Connect in production, not compatible with static-only hosting.
+
+**Choosing:** static HTML deployment → OJS or a widget; computation must genuinely re-run server-side (model refit, DB query) → Shiny; just embedding an existing interactive plot → Jupyter Widgets/htmlwidgets.
+
+OJS data sources (`FileAttachment`, `ojs_define()`), cross-file OJS imports, Shiny reactive expressions and execution contexts, input panel layout: [references/interactivity.md](references/interactivity.md)
+
+---
+
+## 11. MS Word (docx)
+
+```yaml
+---
+title: "Report"
+format: docx
+---
+```
+
+**Match a corporate template** without touching XML — create a `.docx` in Word with the styles (Heading 1, Body Text, table style, ...) set the way you want, then point Quarto at it:
+
+```yaml
+format:
+  docx:
+    reference-doc: custom-reference-doc.docx
+```
+
+Generate a starter reference doc to edit rather than starting from a blank Word file:
+
+```bash
+quarto pandoc -o custom-reference-doc.docx --print-default-data-file reference.docx
+```
+
+Track changes and comments round-trip normally through Word after rendering — useful when final sign-off happens in Word rather than in a PDF or the terminal.
+
+---
+
+## 12. WeasyPrint vs Typst
 
 |                | WeasyPrint              | Typst                  |
 | -------------- | ----------------------- | ---------------------- |
@@ -1061,7 +1212,7 @@ Incremental lists, columns, code line stepping, speaker notes, slide backgrounds
 
 ---
 
-## 10. LaTeX Parity — Typst Workarounds
+## 13. LaTeX Parity — Typst Workarounds
 
 | Feature       | Typst equivalent                                 |
 | ------------- | ------------------------------------------------ |
@@ -1074,7 +1225,7 @@ Incremental lists, columns, code line stepping, speaker notes, slide backgrounds
 
 ---
 
-## 11. Migration
+## 14. Migration
 
 Only when converting existing projects. Do NOT read for new Quarto documents:
 - R Markdown → [references/conversion-rmarkdown.md](references/conversion-rmarkdown.md)
@@ -1086,7 +1237,81 @@ Only when converting existing projects. Do NOT read for new Quarto documents:
 
 ---
 
-## 12. Reference Links
+## 15. Manuscripts
+
+Notebook-first scholarly articles: write in Jupyter/VS Code/RStudio, get the article (PDF/Word/journal format) *and* a manuscript website exposing the source notebooks alongside it.
+
+```bash
+quarto create project manuscript mymanuscript
+```
+
+```yaml
+# _quarto.yml
+project:
+  type: manuscript
+
+manuscript:
+  article: index.qmd
+  notebooks:
+    - notebook-data-cleaning.ipynb
+    - notebook-figures.qmd
+```
+
+Journal-required formats sit alongside HTML:
+```yaml
+format:
+  html: default
+  docx: default    # journal submission
+  jats: default     # publisher-ingestion XML
+```
+
+Community journal templates install like any extension: `quarto add quarto-journals/agu`. Publishes as a manuscript website (`quarto publish`) plus, for journal submission, a MECA bundle. Use a plain `.qmd` with `format: pdf`/`typst` instead when there are no notebooks to expose to readers — the manuscript project type is for reproducible-research papers, not every PDF-producing document.
+
+Authoring per-IDE, notebook-embedding mechanics, when to prefer a book project instead: [references/manuscripts.md](references/manuscripts.md)
+
+---
+
+## 16. Projects
+
+The operational layer under website/book/dashboard/manuscript projects.
+
+**Types:** `quarto create project <type> <name>` — `default | website | blog | book | manuscript | confluence`.
+
+**Render control:**
+```yaml
+project:
+  render:
+    - "*.qmd"
+    - "!ignored.qmd"
+```
+`_metadata.yml` in a subdirectory applies settings (e.g. `freeze: true`) to just that folder, merged over the project-level config.
+
+**Profiles** — multiple variants from one source (dev vs. production, per-region reports):
+```bash
+quarto render --profile production
+```
+```yaml
+# _quarto-production.yml
+execute:
+  freeze: false
+```
+Conditional content: `::: {.content-visible when-profile="production"}`.
+
+**Pre/post-render scripts:**
+```yaml
+project:
+  pre-render: prepare.py
+  post-render: [compress.ts, fix-links.py]
+```
+`QUARTO_PROJECT_RENDER_ALL` distinguishes a full-project render from an incremental one inside these scripts.
+
+**Virtual environments:** `venv`/`conda` (Python) or `renv` (R) — auto-detected by RStudio/Positron, and the same dependency files (`requirements.txt`/`environment.yml`/`renv.lock`) are what Quarto uses to configure a Binder-launchable environment automatically.
+
+Full profile-merging rules, all script environment variables, Binder specifics: [references/projects.md](references/projects.md)
+
+---
+
+## 17. Reference Links
 
 **Quarto docs:**
 - [Quarto Documentation](https://quarto.org/docs/)
@@ -1094,6 +1319,9 @@ Only when converting existing projects. Do NOT read for new Quarto documents:
 - [Books](https://quarto.org/docs/books/) · [EPUB format](https://quarto.org/docs/reference/formats/epub.html)
 - [Publishing](https://quarto.org/docs/publishing/) · [GitHub Actions](https://github.com/quarto-dev/quarto-actions)
 - [Presentations](https://quarto.org/docs/presentations/) · [Reveal.js options](https://quarto.org/docs/reference/formats/presentations/revealjs.html)
+- [Dashboards](https://quarto.org/docs/dashboards/) · [Interactive documents](https://quarto.org/docs/interactive/)
+- [MS Word format reference](https://quarto.org/docs/output-formats/ms-word.html)
+- [Manuscripts](https://quarto.org/docs/manuscripts/) · [Projects](https://quarto.org/docs/projects/quarto-projects.html) · [Profiles](https://quarto.org/docs/projects/profiles.html)
 - [Quarto Extensions](https://quarto.org/docs/extensions/)
 - [Community Extensions](https://m.canouil.dev/quarto-extensions/)
 - [Typst Basics](https://quarto.org/docs/output-formats/typst.html)
@@ -1118,3 +1346,4 @@ Only when converting existing projects. Do NOT read for new Quarto documents:
 - [Typst book support #6979](https://github.com/orgs/quarto-dev/discussions/6979)
 - [Harvard dissertation (Typst+Quarto)](https://github.com/christopherkenny/harvard-diss)
 - [State immunization reports](https://github.com/claritydatastudio/state-immunization-reports) — production Typst template with custom functions (`#source()`, `#blueline()`, `#status-boxes()`), R-based but Typst patterns are language-agnostic
+- [Quarto + Typst PDF reports walkthrough](https://rfortherestofus.com/2025/11/quarto-typst-pdf) — source tutorial behind the `status-box()` pattern and the scaffold/validate script workflow above
