@@ -3,7 +3,9 @@ name: quarto-authoring
 description: Comprehensive Quarto + Typst skill covering authoring (QMD syntax, cross-refs, callouts, figures, tables, citations, code cells, divs/spans), websites and blogs (navigation, themes/SCSS, dark mode, listings, categories, RSS, about pages, comments), books in PDF and EPUB (chapters, parts, appendices, multi-format output, cover images, e-reader metadata), PDF output via Typst (page layout, fonts, typst-show.typ templates, pandoc escaping, orange-book, CV/resume/paper templates, brand.yml) and WeasyPrint (standalone HTML+CSS), MS Word/docx (reference-doc templates), presentations (revealjs, pptx, beamer, Typst slides), dashboards (rows/columns/pages, value boxes, cards, tabsets, sidebars), interactive documents (Observable JS, Shiny, Jupyter widgets/htmlwidgets), manuscripts (notebook-first scholarly articles, journal formats, MECA bundles), project configuration (profiles, pre/post-render scripts, virtual environments, Binder), publishing/deployment (quarto publish, GitHub Pages, Netlify, GitHub Actions, freeze CI pattern), and migration from R Markdown/bookdown/blogdown/Jupyter. Use for any question about Quarto, Typst documents or templates, .qmd files, building a blog or personal website, writing a book or ebook, making a CV or resume PDF, building a Quarto dashboard, adding interactivity (OJS/Shiny/widgets) to a document, writing a reproducible-research manuscript, configuring Quarto project profiles/scripts, or rendering/publishing any of these.
 metadata:
   author: SisengAI (merged from quarto-authoring, quarto-book-structure, colorful-pdf, quarto-typst-pdf)
-  version: "3.3"
+  thanks: Posit and the Quarto core team for building and documenting Quarto itself — see also their independently-authored quarto-authoring skill at posit-dev/skills
+  version: "3.4"
+license: MIT
 ---
 # Quarto Authoring
 

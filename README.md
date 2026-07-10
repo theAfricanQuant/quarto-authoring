@@ -116,3 +116,11 @@ To run one by hand instead:
 **Trigger evals** (`evals/trigger-eval.json` — 20 realistic queries labeled `should_trigger` true/false). These test the `description` field in SKILL.md frontmatter — whether the skill *activates* at the right moments — so only re-run them when you edit the description. Manual version: fresh session, paste a query, watch whether the agent loads the skill. The should-trigger queries are on-topic in disguise; the should-not-trigger ones are deliberate near-misses (WordPress posts, LaTeX theses, PowerPoint decks) that share keywords but belong to other tools.
 
 > **Important:** uninstall any other Quarto skill before running trigger evals — a competing skill intercepts the queries and makes every measurement read as "didn't trigger".
+
+## Credits
+
+Independently authored. Thanks to Posit and the Quarto core team for building and documenting Quarto itself — the foundation everything in this skill sits on top of. Posit also maintains their own [quarto-authoring skill](https://github.com/posit-dev/skills) covering core QMD authoring; this skill additionally covers websites/blogs, books/EPUB, Typst/WeasyPrint PDFs, custom Typst templates, presentations, dashboards, interactivity, MS Word, manuscripts, projects, and publishing.
+
+## License
+
+MIT

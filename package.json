@@ -1,6 +1,6 @@
 {
   "name": "quarto-authoring-skill",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "description": "Comprehensive Quarto + Typst agent skill — documents, websites, blogs, books (PDF/EPUB), Typst templates, presentations, and publishing. Installs into Claude Code, OpenCode, or any SKILL.md-compatible agent.",
   "bin": {
     "quarto-authoring-skill": "bin/install.js"
